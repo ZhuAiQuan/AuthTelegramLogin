@@ -15,7 +15,7 @@
       console.log(event)
       if (event.origin === 'https://oauth.telegram.org') {
         window.opener.postMessage(
-          { type: 'AUTH_SUCCESS', hash },
+          { type: 'AUTH_SUCCESS', data: event.data },
           decodeURIComponent(params.get('origin'))
         )
       }
