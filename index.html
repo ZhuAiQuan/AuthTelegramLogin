@@ -9,10 +9,9 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     if (params.get('bot_id')) {
-      window.open(`https://oauth.telegram.org/auth?bot_id=${params.get('bot_id')}&embed=0&origin=https://auth-telegram-login.vercel.app&provider=TELEGRAM`)
+      window.open(`https://oauth.telegram.org/auth?bot_id=${params.get('bot_id')}&embed=0&origin=https://auth-telegram-login.vercel.app`)
     }
     window.addEventListener('message', event => {
-      console.log(event)
       if (event.origin === 'https://oauth.telegram.org') {
         window.opener.postMessage(
           { type: 'AUTH_SUCCESS', data: event.data },
@@ -21,7 +20,6 @@
         window.close()
       }
     })
-    // window.open('')
   </script>
 </body>
 </html>
