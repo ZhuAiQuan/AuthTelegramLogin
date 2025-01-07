@@ -10,19 +10,15 @@
     const params = new URLSearchParams(window.location.search);
     if (params.get('bot_id')) {
       window.open(`https://oauth.telegram.org/auth?bot_id=${params.get('bot_id')}&embed=0&origin=https://auth-telegram-login.vercel.app&provider=TELEGRAM`)
-    } else if (params.get('provider')) {
-      if (window.opener) {
-        const hash = params.get('hash')
-        window.opener.postMessage(
-          { type: 'AUTH_SUCCESS', hash },
-          '*' // 你可以指定更严格的来源限制
-        );
-      }
-      alert(JSON.stringify(params))
-      window.close();
     }
     window.addEventListener('message', event => {
       console.log(event)
+      if (event.origin === 'https://oauth.telegram.org') {
+        window.opener.postMessage(
+          { type: 'AUTH_SUCCESS', hash },
+          decodeURIComponent(params.get('origin'))
+        )
+      }
     })
     // window.open('')
   </script>
