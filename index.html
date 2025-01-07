@@ -21,6 +21,9 @@
       alert(JSON.stringify(params))
       window.close();
     }
+    window.addEventListener('message', event => {
+      console.log(event)
+    })
     // window.open('')
   </script>
 </body>
