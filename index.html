@@ -9,7 +9,7 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     if (params.get('bot_id')) {
-      window.open(`https://oauth.telegram.org/auth?bot_id=${params.get('bot_id')}&embed=0&redirect_uri=https://auth-telegram-login.vercel.app&provider=TELEGRAM`)
+      window.open(`https://oauth.telegram.org/auth?bot_id=${params.get('bot_id')}&embed=0&origin=https://auth-telegram-login.vercel.app&provider=TELEGRAM`)
     } else if (params.get('provider')) {
       if (window.opener) {
         const hash = params.get('hash')
