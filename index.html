@@ -17,7 +17,8 @@
         window.opener.postMessage(
           { type: 'AUTH_SUCCESS', data: event.data },
           decodeURIComponent(params.get('origin'))
-        )
+        );
+        window.close()
       }
     })
     // window.open('')
