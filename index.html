@@ -9,7 +9,7 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     if (params.get('bot_id')) {
-      window.open(`https://oauth.telegram.org/auth?bot_id=${params.get('bot_id')}&embed=0&origin=https://auth-telegram-login.vercel.app`)
+      window.open(`https://oauth.telegram.org/auth?bot_id=${params.get('bot_id')}&embed=0&origin=https://auth-telegram-login.vercel.app`, `TelegramLoginBot${params.get('bot_id')}`, 'width=600,height=500,toolbar=no,status=0,location=0,menubar=0,toolbar=0,top=0,left=0')
     }
     window.addEventListener('message', event => {
       if (event.origin === 'https://oauth.telegram.org') {
@@ -18,6 +18,11 @@
           decodeURIComponent(params.get('origin'))
         );
         window.close()
+      } else {
+        console.log(ev.data)
+        if (ev.data && ev.data.type === 'AUTH_LOGIN') {
+          console.log(ev.data.data)
+        } 
       }
     })
   </script>
