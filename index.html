@@ -20,11 +20,13 @@
           decodeURIComponent(params.get('origin'))
         );
         window.close()
-      } else if (params.get('origin') && origin) {
+      } else if (params.get('origin') && event.origin === origin) {
+        console.log(event.data.type)
         // 打开授权登录弹窗
         switch(event.data.type) {
           case 'AUTH_LOGIN':
-            event.data.botId && openAuth(event.data.botId, event.data.origin)
+            console.log('start auth')
+            event.data.data.botId && openAuth(event.data.data.botId, event.data.data.origin)
             break;
         }
       }
