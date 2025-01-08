@@ -15,7 +15,6 @@
       window.open(`https://oauth.telegram.org/auth?bot_id=${bot_id}&embed=0&origin=${origin}`, `TelegramLoginBot_${bot_id}`, 'width=600,height=500,toolbar=no,status=0,location=0,menubar=0,toolbar=0,top=0,left=0')
     }
     window.addEventListener('message', event => {
-      console.log(event.origin)
       if (event.origin === 'https://oauth.telegram.org') {
         window.parent.postMessage(
           { type: 'AUTH_SUCCESS', data: event.data },
@@ -23,11 +22,9 @@
         );
         window.close()
       } else if (originUrl && event.origin === decodeURIComponent(originUrl)) {
-        console.log(event.data.type)
         // 打开授权登录弹窗
         switch(event.data.type) {
           case 'AUTH_LOGIN':
-            console.log('start auth')
             event.data.data.botId && openAuth(event.data.data.botId, event.data.data.origin)
             break;
         }
