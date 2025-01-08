@@ -9,18 +9,20 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const origin = decodeURIComponent(params.get('origin'))
-    console.log(origin)
+    const originUrl = params.get('origin')
+
     function openAuth(bot_id, origin) {
       window.open(`https://oauth.telegram.org/auth?bot_id=${bot_id}&embed=0&origin=${origin}`, `TelegramLoginBot_${bot_id}`, 'width=600,height=500,toolbar=no,status=0,location=0,menubar=0,toolbar=0,top=0,left=0')
     }
     window.addEventListener('message', event => {
+      console.log(event.origin)
       if (event.origin === 'https://oauth.telegram.org') {
         window.opener.postMessage(
           { type: 'AUTH_SUCCESS', data: event.data },
-          origin
+          decodeURIComponent(originUrl)
         );
         window.close()
-      } else if (params.get('origin') && event.origin === origin) {
+      } else if (originUrl && event.origin === decodeURIComponent(originUrl)) {
         console.log(event.data.type)
         // 打开授权登录弹窗
         switch(event.data.type) {
