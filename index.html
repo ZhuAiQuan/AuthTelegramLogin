@@ -10,8 +10,8 @@
     const params = new URLSearchParams(window.location.search);
     const origin = decodeURIComponent(params.get('origin'))
 
-    function openAuth(bot_id) {
-      window.open(`https://oauth.telegram.org/auth?bot_id=${bot_id}&embed=0&origin=https://auth-telegram-login.vercel.app`, `TelegramLoginBot_${bot_id}`, 'width=600,height=500,toolbar=no,status=0,location=0,menubar=0,toolbar=0,top=0,left=0')
+    function openAuth(bot_id, origin) {
+      window.open(`https://oauth.telegram.org/auth?bot_id=${bot_id}&embed=0&origin=${origin}`, `TelegramLoginBot_${bot_id}`, 'width=600,height=500,toolbar=no,status=0,location=0,menubar=0,toolbar=0,top=0,left=0')
     }
     window.addEventListener('message', event => {
       if (event.origin === 'https://oauth.telegram.org') {
@@ -24,7 +24,7 @@
         // 打开授权登录弹窗
         switch(event.data.type) {
           case 'AUTH_LOGIN':
-            event.data.botId && openAuth(event.data.botId)
+            event.data.botId && openAuth(event.data.botId, event.data.origin)
             break;
         }
       }
